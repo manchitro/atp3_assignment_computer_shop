@@ -1,18 +1,20 @@
 const express = require("express");
-const signup = require("./controllers/signup");
-const login = require("./controllers/login");
+const bodyParser 		= require('body-parser');
+const exSession 		= require('express-session');
+const cookieParser 		= require('cookie-parser');
+const customer = require("./controllers/customer");
+const admin = require("./controllers/admin");
 const app = express();
 
 app.set("view engine", "ejs");
 
 app.use("/assets", express.static("assets"));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
+app.use(exSession({secret: 'secret value', saveUninitialized: true, resave: false}));
 
-app.use("/login", login);
-app.use("/signup", signup);
-
-app.get("/", (req, res) => {
-  res.render("customer/index");
-});
+app.use('/', customer);
+app.use('/admin', admin);
 
 //server startup
 app.listen(5000, (error) => {

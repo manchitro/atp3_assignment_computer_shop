@@ -9,7 +9,7 @@
           <input
             class="form-control mr-sm-2 w-75"
             type="search"
-            placeholder="Search for products or brands"
+            placeholder="Search for products"
             aria-label="Search"
           />
           <button
@@ -29,8 +29,14 @@
         />
         0
       </div>
+      <% if(!user.id){ %>
       <div class="col-1"><a href="/login">Login</a></div>
       <div class="col-1"><a href="/signup">Signup</a></div>
+      
+      <% }else{ %>
+        <div class="col-1"><%= user.fullName%></div>
+        <div class="col-1"><a href="/logout">logout</a></div>
+      <% } %>
     </div>
     <div class="row w-100 align-items-center font-weight-bold">
       <nav class="nav-menu d-none d-lg-block">
